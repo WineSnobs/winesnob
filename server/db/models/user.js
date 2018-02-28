@@ -46,6 +46,20 @@ const User = db.define('user', {
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,
+  },
+  orderCode: {
+    type: Sequelize.STRING
+  },
+  randomGenerate: {
+    type: Sequelize.VIRTUAL,
+    get: function() {
+      let text = ""
+      let possible = "ABCDDEFGHIJFMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+
+      for (var i = 0; i < 6; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+      this.orderCode = text;
+    }
   }
 })
 
@@ -61,6 +75,7 @@ User.beforeBulkDestroy = () => {
   
 }
 
+
 User.hook('beforeBulkDestroy', (user) => {
   Order.destroy({
     where: {
@@ -68,6 +83,13 @@ User.hook('beforeBulkDestroy', (user) => {
   }})
 })
 
+User.hook('beforeCreate', (user) => {
+  user.randomGenerate
+})
+
+User.prototype.randomGenerateAgain = () => {
+  this.randomGenerate
+}
 
 User.generateSalt = function () {
   return crypto.randomBytes(16).toString('base64')

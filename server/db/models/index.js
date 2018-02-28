@@ -11,7 +11,7 @@ User.belongsTo(Place, { as: 'place' })
 User.hasMany(Order, { as: 'orders' })
 User.hasMany(Review, { as: 'reviews'})
 Order.belongsTo(User, { as: 'user' })
-Order.hasMany(List, { as: 'lists' })
+
 Wine.belongsTo(Place, { as: 'place' })
 Wine.hasMany(List, { as: 'lists' })
 Wine.hasMany(Review, { as: 'reviews'})
