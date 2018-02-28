@@ -45,6 +45,7 @@ const mapState = (state) => {
 
     return {
         selectedWine: state.wine.selectedWine
+        
     }
 }
 

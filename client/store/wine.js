@@ -30,6 +30,7 @@ export const selectWineById = (id) =>
         axios.get(`/api/wines/${id}`)
             .then(res => {
                 dispatch(selectWine(res.data))
+                res.data.id = Number(res.data.wine.id)
                 history.push(`/winelist/${res.data.id}`)
             })
 
