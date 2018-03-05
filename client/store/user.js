@@ -1,7 +1,7 @@
 import axios from 'axios'
 import history from '../history'
-import { clearItems } from './cart'
-import { updateOrder } from './order'
+
+import {clearItems} from './cart'
 
 
 const GET_USER = 'GET_USER'
@@ -31,25 +31,23 @@ export const me = () =>
 
 export const login = (email, password, order) =>
   dispatch =>
-    axios.post('/auth/login', { email, password })
-      .then(res => {
-        dispatch(getUser(res.data))
-        dispatch(clearItems())
-        // if (order.id) {
-        //   dispatch(updateOrder(order.id, { userId: res.data.id }))
-        // }
-        history.push('/home')
-      })
-      .catch(err => console.error(err))
 
-export const signup = (signUpInfo, order) =>
+    axios.post('/auth/login', {email, password})
+        .then(res => {
+          dispatch(getUser(res.data))
+          dispatch(clearItems())
+          history.push('/home')
+        })
+      .catch(err => console.log(err))
+
+export const signup = (signUpInfo) =>
+
   dispatch =>
     axios.post('/auth/signup', signUpInfo)
       .then(res => {
         dispatch(addUser(res.data))
-        if (order.id) {
-          dispatch(updateOrder(order.id, { userId: res.data.id }))
-        }
+        dispatch(clearItems())
+
         history.push('/home')
       })
       .catch(err => console.error(err))

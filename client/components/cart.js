@@ -4,6 +4,29 @@ import { Link } from 'react-router-dom'
 import { fetchItems, putItems, updateQuantity, removeItem } from '../store/cart'
 
 
+
+export const Cart = (props) => {
+   console.log('Cart Props---------------------', props.winesInCart)
+   let winesInCart = props.winesInCart;
+
+   return (
+       <div>
+
+
+
+
+           {
+               winesInCart.map(wine => (
+                   <div key={wine.id}>
+                       <h2>{wine.id} {wine.price} {wine.quantity} {wine.total}</h2>
+                   </div>
+               ))
+           }
+           <h1>Cart</h1>
+           <Link to="/checkout">Checkout</Link>
+       </div>
+   )
+
 class Cart extends React.Component {
     constructor(props) {
         super(props)
@@ -63,6 +86,7 @@ class Cart extends React.Component {
             </div>
         )
     }
+
 }
 
 const mapState = (state) => {
@@ -76,6 +100,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
     return {
+
         loadCart(event) {
             event.preventDefault()
             dispatch(fetchItems())
@@ -94,8 +119,11 @@ const mapDispatch = (dispatch) => {
             event.preventDefault()
             dispatch(removeItem(id))
         }
+
     }
 }
 
 
+
 export default connect(mapState, mapDispatch)(Cart)
+

@@ -1,7 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { postItem } from '../store'
+import { fetchItems } from '../store/cart'
 import { selectWineById } from '../store/wine'
+
 
 export const SelectedWine = (props) => {
     const wine = props.data;
@@ -37,10 +39,10 @@ export const SelectedWine = (props) => {
                     price: ${wine.price}
                 </h6>
             </div>
-             <div>
-            <button onClick={(event) => {
-                props.addToCart(event, wine)
-            }} > Add to Cart </button>
+
+             <div onClick={props.loadCart}>
+            <button onClick={() => props.addToCart(wine)} > Add to Cart </button>
+
             </div>
         </div>
     )
@@ -70,7 +72,8 @@ class Loader extends React.Component {
 
 
         const Render = this.props.Render
-        return <Render data={this.props.data} addToCart={this.props.addToCart} fetchOrder={this.props.fetchOrder} />
+        return <Render data={this.props.data} addToCart={this.props.addToCart} loadCart={this.props.loadCart}/>
+
     }
 }
 
@@ -87,9 +90,14 @@ const mapDispatch = (dispatch) => {
         load(id) {
             return dispatch(selectWineById(id))
         },
-        addToCart(event, item) {
-             event.preventDefault()
+
+        addToCart(item) {
+           // console.log('props item-----------> ', item);
+
              dispatch(postItem(item))
+        },
+        loadCart () {
+          dispatch(fetchItems())
         }
     }
 }
