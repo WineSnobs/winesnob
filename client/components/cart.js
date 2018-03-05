@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { fetchItems, putItems, updateQuantity, removeItem } from '../store'
 
 
+
 export class Cart extends React.Component {
     constructor(props) {
         super(props)
@@ -69,6 +70,7 @@ export class Cart extends React.Component {
     }
 }
 
+
 const mapState = (state) => {
     return {
         winesInCart: state.cart.items,
@@ -99,6 +101,14 @@ const mapDispatch = (dispatch) => {
         }
     }
 }
+
+const mapDispatch = (dispatch) => {
+	return {
+		loadCart() {
+			dispatch(fetchItems());
+		}
+	}
+};
 
 
 export default connect(mapState, mapDispatch)(Cart)

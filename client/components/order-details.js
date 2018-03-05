@@ -6,7 +6,13 @@ import { fetchSingleOrder } from '../store'
 class OrderDetails extends React.Component {
 
   componentDidMount() {
+<<<<<<< HEAD
+    // console.log('match: ', this.props.match)
     const orderId = Number(this.props.match.params.orderId)
+    // console.log('orderId: ', orderId);
+=======
+    const orderId = Number(this.props.match.params.orderId)
+>>>>>>> c0bf6040c224bfc281d95180776fa314ac9a2bb7
     this.props.fetchSingleOrder(orderId);
   }
 
@@ -42,6 +48,8 @@ class OrderDetails extends React.Component {
     }
   }
 }
+
+
 
 
 const mapState = (state) => {

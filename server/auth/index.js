@@ -4,6 +4,10 @@ const Place = require('../db/models/place')
 module.exports = router
 
 router.post('/login', (req, res, next) => {
+<<<<<<< HEAD
+  // req.session.destroy()
+  User.findOne({where: {email: req.body.email}})
+=======
   req.session.guestOrder= req.session.order;
   req.session.order = null;
   User.findOne({where: {email: req.body.email},
@@ -12,6 +16,7 @@ router.post('/login', (req, res, next) => {
       as: 'place'
     }]
   })
+>>>>>>> c0bf6040c224bfc281d95180776fa314ac9a2bb7
     .then(user => {
       if (!user) {
         res.status(401).send('User not found')
@@ -19,7 +24,12 @@ router.post('/login', (req, res, next) => {
         res.status(401).send('Incorrect password')
       } else {
         req.login(user, err => (err ? next(err) : res.json(user)))
+<<<<<<< HEAD
+        req.session.passport= user;
+        console.log('REQ.SESSION', req.session)
+=======
         //req.session.passport= user.dataValues;
+>>>>>>> c0bf6040c224bfc281d95180776fa314ac9a2bb7
       }
     })
     .catch(next)
@@ -43,7 +53,12 @@ router.post('/signup', (req, res, next) => {
     })
     .then(user => {
       req.login(user, err => (err ? next(err) : res.json(user)))
+<<<<<<< HEAD
+      req.session.passport= user;
+      console.log('REQ.SESSION SIGN UP', req.session)
+=======
       req.session.passport = user;
+>>>>>>> c0bf6040c224bfc281d95180776fa314ac9a2bb7
     })
     .catch(err => {
       if (err.name === 'SequelizeUniqueConstraintError') {
@@ -62,7 +77,7 @@ router.post('/logout', (req, res) => {
 })
 
 router.get('/me', (req, res) => {
-  res.json(req.user)
+  res.send(req.user)
 })
 
 router.use('/google', require('./google'))

@@ -6,9 +6,14 @@ import user from './user'
 import wine from './wine'
 import cart from './cart'
 import order from './order'
+import review from './review'
 
+<<<<<<< HEAD
+const reducer = combineReducers({user, wine, cart, order, review})
+=======
 
 const reducer = combineReducers({user, wine, cart, order})
+>>>>>>> c0bf6040c224bfc281d95180776fa314ac9a2bb7
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})
@@ -20,3 +25,4 @@ export * from './user'
 export * from './wine'
 export * from './cart'
 export * from './order'
+export * from './review'
